@@ -73,7 +73,7 @@ class PostCSSCompiler {
 			file.data = '';
 		}
 		if (file.map) {
-			opts.map.prev = file.map.toJSON();
+			opts.map.prev = file.map.toJSON ? file.map.toJSON() : file.map;
 		}
 
 		return this.processor.process(file.data, opts).then(result => {
