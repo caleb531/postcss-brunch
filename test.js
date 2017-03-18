@@ -54,14 +54,14 @@ describe('Plugin', () => {
   //   plugin.processors.should.be.an.Array().with.length(3);
   // });
 
-  it('compile', () => {
+  it('optimize', () => {
     const data = 'a{a:a}';
     return plugin.optimize({path: 'a.css', data}).then(file => {
       file.data.should.be.eql(data);
     });
   });
 
-  it('compile with options', () => {
+  it('optimize with options', () => {
      const data = fs.readFileSync('fixtures/sample.css', 'utf-8');
      const expected = fs.readFileSync('fixtures/sample.out.css', 'utf-8');
      return plugin.optimize({path: 'a.css', data}).then(actual => {
@@ -69,7 +69,7 @@ describe('Plugin', () => {
      });
   });
 
-  it('compile with sourcemaps', () => {
+  it('optimize with sourcemaps', () => {
     const data = fs.readFileSync('fixtures/sample.css', 'utf-8');
     const map = {
       version: 3,
@@ -83,21 +83,21 @@ describe('Plugin', () => {
     });
   });
 
-  it('compile when no data given', () => {
+  it('optimize when no data given', () => {
     const expected = '';
-    return plugin.compile({path: 'a.css'}).then(actual => {
+    return plugin.optimize({path: 'a.css'}).then(actual => {
       actual.data.should.eql(expected);
     });
   });
 
-  it('compile ignored file', () => {
+  it('optimize ignored file', () => {
     const expected = 'h2 { color: red; }';
-    return plugin.compile({path: 'postcssignore.css', data: 'h2 { color: red; }'}).then(actual => {
+    return plugin.optimize({path: 'postcssignore.css', data: 'h2 { color: red; }'}).then(actual => {
       actual.data.should.eql(expected);
     });
   });
 
-  it('compile with custom parser', () => {
+  it('optimize with custom parser', () => {
     const data = fs.readFileSync('fixtures/parser.scss', 'utf-8');
     const expected = fs.readFileSync('fixtures/parser.out.scss', 'utf-8');
 
@@ -112,7 +112,7 @@ describe('Plugin', () => {
       },
     });
 
-    return scssPlugin.compile({data, path: 'fixtures/parser.scss'}).then(actual => {
+    return scssPlugin.optimize({data, path: 'fixtures/parser.scss'}).then(actual => {
       actual.data.should.be.equal(expected);
     });
   })
