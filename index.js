@@ -58,7 +58,7 @@ class PostCSSCompiler {
 		this.modules = this.config.modules;
 	}
 
-	compile(file) {
+	optimize(file) {
 		if(this.isIgnored(file.path)) {
 			return Promise.resolve(file);
 		}
